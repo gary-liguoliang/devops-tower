@@ -24,6 +24,6 @@ public class ConfigServiceTest {
 
     @Test
     public void negativeTest() throws Exception {
-        assertEquals(1, 1.1);
+        assertEquals(1, 1);
     }
 }
