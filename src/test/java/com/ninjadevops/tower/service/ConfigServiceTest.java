@@ -22,4 +22,8 @@ public class ConfigServiceTest {
         assertEquals(id, configObject.getId());
     }
 
+    @Test
+    public void negativeTest() throws Exception {
+        assertEquals(1, 1.1);
+    }
 }
