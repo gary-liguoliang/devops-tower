@@ -18,25 +18,28 @@ public class JobExecutorTest {
     JobExecutor testingJobExecutor;
     JobInstance jobInstance;
 
+    DBConnection dbConnection;
+    JobConfig sqlJobConfig;
+
+
     @Before
     public void setUp() throws Exception {
         testingJobExecutor = new JobExecutor();
         JobConfig jobConfig = null;
         ConfigObject configObject = null;
         jobInstance = new JobInstance(jobConfig, configObject);
+
+        String dbPath = FileUtils.getTempDirectoryPath() + "//sql_tower";
+
+        dbConnection = new DBConnection("db-connection-1");
+        dbConnection.setConnectionString("jdbc:h2:" + dbPath);
+
+        sqlJobConfig = new JobConfig();
+        sqlJobConfig.setCommand("SELECT 'LI'");
     }
 
     @Test
     public void executeSQLJobTest() {
-
-        String dbPath = FileUtils.getTempDirectoryPath() + "//sql_tower";
-
-        DBConnection dbConnection = new DBConnection("db-connection-1");
-        dbConnection.setConnectionString("jdbc:h2:" + dbPath);
-
-        JobConfig sqlJobConfig = new JobConfig();
-        sqlJobConfig.setCommand("SELECT 'LI'");
-
         jobInstance = new JobInstance(sqlJobConfig, dbConnection);
 
         JobRunResult result = null;
@@ -46,6 +49,15 @@ public class JobExecutorTest {
             e.printStackTrace();
         }
         assertEquals("LI", result.getValue());
+    }
+
+    @Test(expected = JobExecutor.JobExecutionException.class)
+    public void executeSQLJobNegativeTest() throws JobExecutor.JobExecutionException {
+        JobConfig sqlJobConfigWithSyntaxError = new JobConfig();
+        sqlJobConfigWithSyntaxError.setCommand("SELEC 'LI'");
+        jobInstance = new JobInstance(sqlJobConfigWithSyntaxError, dbConnection);
+
+        testingJobExecutor.execute(jobInstance);
     }
 
 }
