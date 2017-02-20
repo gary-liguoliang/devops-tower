@@ -23,4 +23,10 @@ public class DBConnection implements ConfigObject {
     public String getId() {
         return id;
     }
+
+    public static DBConnection newInstance(String id, String connectionString) {
+        DBConnection dbConnection = new DBConnection(id);
+        dbConnection.setConnectionString(connectionString);
+        return dbConnection;
+    }
 }
