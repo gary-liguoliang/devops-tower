@@ -3,6 +3,7 @@ package com.ninjadevops.tower.storage;
 import com.ninjadevops.tower.model.ConfigObject;
 import com.ninjadevops.tower.model.DBConnection;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,6 +13,7 @@ public class ConfigDataStore {
     Map<String, ConfigObject> objectsRepo;
 
     public ConfigDataStore() {
+        objectsRepo = new HashMap<>();
     }
 
     public void setObjectsRepo(Map<String,ConfigObject> objectsRepo) {

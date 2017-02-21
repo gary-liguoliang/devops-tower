@@ -4,7 +4,7 @@ package com.ninjadevops.tower.model;
  * Created by me@liguoliang.com on 2/18/2017.
  */
 public class JobConfig implements ConfigObject{
-    String id;
+    private String id;
     private String command;
 
     public void setCommand(String command) {
@@ -18,5 +18,16 @@ public class JobConfig implements ConfigObject{
     @Override
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public static ConfigObject newInstance(String id, String command) {
+        JobConfig newJobConfig = new JobConfig();
+        newJobConfig.setId(id);
+        newJobConfig.setCommand(command);
+        return newJobConfig;
     }
 }
