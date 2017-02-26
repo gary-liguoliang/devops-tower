@@ -13,16 +13,16 @@ import static org.junit.Assert.*;
 /**
  * Created by me@liguoliang.com on 2/20/2017.
  */
-public class ConfigDataStoreTest {
+public class ConfigDataStoreInMemoryTest {
 
     public static final String DB_CONNECTION_DEV = "db-connection-dev";
-    ConfigDataStore testingDataStore;
+    ConfigDataStoreInMemory testingDataStore;
 
     Map<String, ConfigObject> configObjectMap;
 
     @Before
     public void setUp() throws Exception {
-        testingDataStore = new ConfigDataStore();
+        testingDataStore = new ConfigDataStoreInMemory();
 
         configObjectMap = new HashMap<>();
         DBConnection dbConnection = new DBConnection(DB_CONNECTION_DEV);
