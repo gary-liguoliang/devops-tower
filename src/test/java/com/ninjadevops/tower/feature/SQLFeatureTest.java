@@ -25,7 +25,7 @@ public class SQLFeatureTest {
     public void setUp() throws Exception {
         configDataStoreInMemory = new ConfigDataStoreInMemory();
 
-        configDataStoreInMemory.saveConfigObject(DBConnection.newInstance(DB_CONNECTION, "jdbc:h2:" + FileUtils.getTempDirectoryPath() + "//sql_tower"));
+        configDataStoreInMemory.saveConfigObject(DBConnection.newInstance(DB_CONNECTION, "jdbc:h2:mem:test"));
         configDataStoreInMemory.saveConfigObject(JobConfig.newInstance(JOB_GET_APP_NAME, "SELECT 'DevOpsTower'"));
 
         configService = new ConfigService();

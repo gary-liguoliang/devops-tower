@@ -30,4 +30,12 @@ public class JobConfig implements ConfigObject{
         newJobConfig.setCommand(command);
         return newJobConfig;
     }
+
+    @Override
+    public String toString() {
+        return "JobConfig{" +
+                "id='" + id + '\'' +
+                ", command='" + command + '\'' +
+                '}';
+    }
 }

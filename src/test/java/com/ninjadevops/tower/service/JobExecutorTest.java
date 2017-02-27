@@ -29,10 +29,8 @@ public class JobExecutorTest {
         ConfigObject configObject = null;
         jobInstance = new JobInstance(jobConfig, configObject);
 
-        String dbPath = FileUtils.getTempDirectoryPath() + "//sql_tower";
-
         dbConnection = new DBConnection("db-connection-1");
-        dbConnection.setConnectionString("jdbc:h2:" + dbPath);
+        dbConnection.setConnectionString("jdbc:h2:mem:test");
 
         sqlJobConfig = new JobConfig();
         sqlJobConfig.setCommand("SELECT 'LI'");

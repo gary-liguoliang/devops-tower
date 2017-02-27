@@ -39,7 +39,7 @@ public class ConfigDataStoreInMemoryTest {
 
     @Test
     public void testSaveNewConfig() throws Exception {
-        ConfigObject dbConn = DBConnection.newInstance("db-conn", "jdbc://mysql.instance/db1");
+        ConfigObject dbConn = DBConnection.newInstance("db-conn", "jdbc://h2:mem:test");
         int repoSizeBeforeSaving = configObjectMap.size();
         testingDataStore.saveConfigObject(dbConn);
         assertEquals(configObjectMap.size(), repoSizeBeforeSaving + 1);

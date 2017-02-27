@@ -29,4 +29,12 @@ public class DBConnection implements ConfigObject {
         dbConnection.setConnectionString(connectionString);
         return dbConnection;
     }
+
+    @Override
+    public String toString() {
+        return "DBConnection{" +
+                "id='" + id + '\'' +
+                ", connectionString='" + connectionString + '\'' +
+                '}';
+    }
 }
