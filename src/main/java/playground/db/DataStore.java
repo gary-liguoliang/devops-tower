@@ -1,7 +1,5 @@
 package playground.db;
 
-import org.apache.commons.io.FileUtils;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,8 +10,7 @@ import java.sql.Statement;
  * Created by guoliang on 2/13/2017.
  */
 public class DataStore {
-    private static String dbPath = FileUtils.getTempDirectoryPath() + "//devops_tower";
-    public final static String inMemoryDBConnString = "jdbc:h2:" + dbPath;
+    public final static String inMemoryDBConnString = "jdbc:h2:mem:test";
 
     static {
         try {
