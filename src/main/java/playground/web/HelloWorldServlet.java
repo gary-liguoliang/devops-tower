@@ -1,5 +1,6 @@
 package playground.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import playground.db.DataStore;
 
 import javax.servlet.ServletException;

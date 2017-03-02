@@ -6,8 +6,6 @@ import com.ninjadevops.tower.model.runtime.JobRunResult;
 
 import java.sql.*;
 
-import static playground.db.DataStore.inMemoryDBConnString;
-
 /**
  * Created by me@liguoliang.com on 2/18/2017.
  */

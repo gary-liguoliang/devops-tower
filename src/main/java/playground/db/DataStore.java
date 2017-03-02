@@ -1,5 +1,8 @@
 package playground.db;
 
+import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Service;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,13 +12,14 @@ import java.sql.Statement;
 /**
  * Created by guoliang on 2/13/2017.
  */
+@Service
 public class DataStore {
-    public final static String inMemoryDBConnString = "jdbc:h2:mem:test";
+    public final static String dbConnectionString = "jdbc:h2:" + FileUtils.getTempDirectoryPath() + "//devops_tower";
 
     static {
         try {
             Class.forName("org.h2.Driver");
-            Connection connection = DriverManager.getConnection(inMemoryDBConnString);
+            Connection connection = DriverManager.getConnection(dbConnectionString);
 
             Statement statement = connection.createStatement();
             statement.execute("DROP TABLE PRICE IF EXISTS; CREATE TABLE PRICE(BATCH_ID INTEGER, INSTRUMENT_CODE VARCHAR(32), PRICE DECIMAL(10, 2), LOAD_TIMESTAMP TIMESTAMP )");
@@ -33,7 +37,7 @@ public class DataStore {
 
     public static String getDummyResult() throws SQLException, ClassNotFoundException {
         Class.forName("org.h2.Driver");
-        Connection connection = DriverManager.getConnection(inMemoryDBConnString);
+        Connection connection = DriverManager.getConnection(dbConnectionString);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT TOP 10 * FROM PRICE");
         String result = "";

@@ -14,14 +14,8 @@ import org.glassfish.jersey.servlet.ServletContainer;
  */
 public class WebAppLiteEmbedded {
 
-    public static void main(String[] args) throws Exception{
+    public void startWebApp() throws Exception {
         Server server = new Server(8081);
-
-//        ServletHandler servletHandler = new ServletHandler();
-//        server.setHandler(servletHandler);
-//
-//        servletHandler.addServletWithMapping(HelloWorldServlet.class, "/");
-//        servletHandler.addServletWithMapping(ServletContainer.class, "/rest/*");
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
         contextHandler.setContextPath("/");
@@ -29,7 +23,6 @@ public class WebAppLiteEmbedded {
 
         ServletHolder servletHolder = contextHandler.addServlet(org.glassfish.jersey.servlet.ServletContainer.class, "/rest/*");
         servletHolder.setInitParameter("jersey.config.server.provider.packages", "playground.web");
-//        servletHolder.setInitParameter("jersey.config.server.provider.classnames", JerseyHelloWorld.class.getCanonicalName());
         servletHolder.setInitOrder(1);
 
         contextHandler.addServlet(HelloWorldServlet.class, "/");
@@ -37,5 +30,6 @@ public class WebAppLiteEmbedded {
         server.start();
         server.join();
     }
+
 
 }

@@ -12,7 +12,7 @@
 
     <properties>
         <jetty.version>9.4.0.v20161208</jetty.version>
-        <jersy.version>2.6</jersy.version>
+        <jersy.version>2.25.1</jersy.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -125,6 +125,11 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.4.Final</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
