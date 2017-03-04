@@ -1,0 +1,10 @@
+[
+  {
+    "id": "sql-get-env-name",
+    "command": "select 'SIT'"
+  },
+  {
+    "id": "sql-last-trade",
+    "command": "select 'SIT'"
+  }
+]

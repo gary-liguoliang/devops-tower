@@ -3,7 +3,6 @@ package com.ninjadevops.tower.service;
 import com.ninjadevops.tower.model.ConfigObject;
 import com.ninjadevops.tower.model.DBConnection;
 import com.ninjadevops.tower.storage.ConfigDataStore;
-import com.ninjadevops.tower.storage.ConfigDataStoreInMemory;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -21,7 +20,7 @@ public class ConfigServiceTest {
     public void setUp() throws Exception {
         configService = new ConfigService();
         ConfigDataStore configDataStore = mock(ConfigDataStore.class);
-        when(configDataStore.getConfigObjectById(anyString())).thenAnswer(
+        when(configDataStore.getDBConnectionById(anyString())).thenAnswer(
                 (InvocationOnMock invocation) -> DBConnection.newInstance((String) invocation.getArguments()[0], "")
         );
         configService.setConfigDataStore(configDataStore);
@@ -31,7 +30,7 @@ public class ConfigServiceTest {
     @Test
     public void getConfigObjectById() throws Exception {
         String id = "sql-get-env-name";
-        ConfigObject configObject = configService.getConfigObjectById(id);
+        ConfigObject configObject = configService.getDBConnectionById(id);
         assertEquals(id, configObject.getId());
     }
 

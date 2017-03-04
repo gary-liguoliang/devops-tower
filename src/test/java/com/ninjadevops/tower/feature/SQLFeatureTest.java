@@ -8,7 +8,6 @@ import com.ninjadevops.tower.service.ConfigService;
 import com.ninjadevops.tower.service.JobExecutor;
 import com.ninjadevops.tower.storage.ConfigDataStore;
 import com.ninjadevops.tower.storage.ConfigDataStoreInMemory;
-import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,8 +24,8 @@ public class SQLFeatureTest {
     public void setUp() throws Exception {
         configDataStoreInMemory = new ConfigDataStoreInMemory();
 
-        configDataStoreInMemory.saveConfigObject(DBConnection.newInstance(DB_CONNECTION, "jdbc:h2:mem:test"));
-        configDataStoreInMemory.saveConfigObject(JobConfig.newInstance(JOB_GET_APP_NAME, "SELECT 'DevOpsTower'"));
+        configDataStoreInMemory.saveDBConnection(DBConnection.newInstance(DB_CONNECTION, "jdbc:h2:mem:test"));
+        configDataStoreInMemory.saveJobConfig(JobConfig.newInstance(JOB_GET_APP_NAME, "SELECT 'DevOpsTower'"));
 
         configService = new ConfigService();
         configService.setConfigDataStore(configDataStoreInMemory);
@@ -34,7 +33,7 @@ public class SQLFeatureTest {
 
     @Test
     public void getAndExecuteSQLJob() throws Exception {
-        JobInstance jobInstance = new JobInstance((JobConfig) configService.getConfigObjectById(JOB_GET_APP_NAME), configService.getConfigObjectById(DB_CONNECTION));
+        JobInstance jobInstance = new JobInstance(configService.getJobConfigById(JOB_GET_APP_NAME), configService.getDBConnectionById(DB_CONNECTION));
         JobExecutor executor = new JobExecutor();
         JobRunResult result = executor.execute(jobInstance);
 

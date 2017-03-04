@@ -33,15 +33,15 @@ public class ConfigDataStoreInMemoryTest {
 
     @Test
     public void testGetConfigById() throws Exception {
-        ConfigObject result = testingDataStore.getConfigObjectById(DB_CONNECTION_DEV);
+        ConfigObject result = testingDataStore.getDBConnectionById(DB_CONNECTION_DEV);
         assertEquals(DB_CONNECTION_DEV, result.getId());
     }
 
     @Test
     public void testSaveNewConfig() throws Exception {
-        ConfigObject dbConn = DBConnection.newInstance("db-conn", "jdbc://h2:mem:test");
+        DBConnection dbConn = DBConnection.newInstance("db-conn", "jdbc://h2:mem:test");
         int repoSizeBeforeSaving = configObjectMap.size();
-        testingDataStore.saveConfigObject(dbConn);
+        testingDataStore.saveDBConnection(dbConn);
         assertEquals(configObjectMap.size(), repoSizeBeforeSaving + 1);
         assertTrue(configObjectMap.containsKey("db-conn"));
 

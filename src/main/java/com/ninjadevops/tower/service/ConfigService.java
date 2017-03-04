@@ -1,6 +1,9 @@
 package com.ninjadevops.tower.service;
 
+import com.ninjadevops.tower.exception.StorageException;
 import com.ninjadevops.tower.model.ConfigObject;
+import com.ninjadevops.tower.model.DBConnection;
+import com.ninjadevops.tower.model.JobConfig;
 import com.ninjadevops.tower.storage.ConfigDataStore;
 import com.ninjadevops.tower.storage.ConfigDataStoreInMemory;
 
@@ -15,7 +18,11 @@ public class ConfigService {
         this.configDataStore = configDataStore;
     }
 
-    public ConfigObject getConfigObjectById(String id) {
-        return configDataStore.getConfigObjectById(id);
+    public DBConnection getDBConnectionById(String id) throws Exception {
+        return configDataStore.getDBConnectionById(id);
+    }
+
+    public JobConfig getJobConfigById(String id) throws StorageException {
+        return configDataStore.getJobConfigByID(id);
     }
 }

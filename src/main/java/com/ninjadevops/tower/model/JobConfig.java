@@ -24,7 +24,7 @@ public class JobConfig implements ConfigObject{
         this.id = id;
     }
 
-    public static ConfigObject newInstance(String id, String command) {
+    public static JobConfig newInstance(String id, String command) {
         JobConfig newJobConfig = new JobConfig();
         newJobConfig.setId(id);
         newJobConfig.setCommand(command);

@@ -2,6 +2,7 @@ package com.ninjadevops.tower.storage;
 
 import com.ninjadevops.tower.model.ConfigObject;
 import com.ninjadevops.tower.model.DBConnection;
+import com.ninjadevops.tower.model.JobConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,13 +22,24 @@ public class ConfigDataStoreInMemory implements ConfigDataStore {
     }
 
     @Override
-    public ConfigObject getConfigObjectById(String id) {
-        return objectsRepo.get(id);
+    public DBConnection getDBConnectionById(String id) {
+        return (DBConnection) objectsRepo.get(id);
     }
 
     @Override
-    public ConfigObject saveConfigObject(ConfigObject newConfigObject) {
+    public DBConnection saveDBConnection(DBConnection newConfigObject) {
         objectsRepo.put(newConfigObject.getId(), newConfigObject);
         return newConfigObject;
+    }
+
+    @Override
+    public JobConfig getJobConfigByID(String id) {
+        return (JobConfig) objectsRepo.get(id);
+    }
+
+    @Override
+    public JobConfig saveJobConfig(JobConfig jobConfig) {
+        objectsRepo.put(jobConfig.getId(), jobConfig);
+        return jobConfig;
     }
 }

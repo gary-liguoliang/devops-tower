@@ -1,0 +1,14 @@
+[
+  {
+    "id": "db-sit",
+    "connectionString": "dbc:h2:mem:test"
+  },
+  {
+    "id": "db-sit2",
+    "connectionString": "dbc:h2:mem:test"
+  },
+  {
+    "id": "db-uat",
+    "connectionString": "dbc:h2:mem:test"
+  }
+]
