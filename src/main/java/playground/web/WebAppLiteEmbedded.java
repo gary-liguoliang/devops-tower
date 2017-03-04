@@ -31,5 +31,11 @@ public class WebAppLiteEmbedded {
         server.join();
     }
 
+    public static void main(String[] args) throws Exception {
+        WebAppLiteEmbedded app = new WebAppLiteEmbedded();
+        app.startWebApp();
+
+    }
+
 
 }
