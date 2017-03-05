@@ -13,7 +13,6 @@ import playground.web.WebAppLiteEmbedded;
  */
 
 @SpringBootApplication
-@ComponentScan("playground.db")
 public class SBApp {
 
     @Autowired
@@ -22,8 +21,8 @@ public class SBApp {
     public static void main(String[] args) throws Exception {
         final SpringApplication app = new SpringApplication(SBApp.class);
         app.run();
-        WebAppLiteEmbedded webAppLiteEmbedded = new WebAppLiteEmbedded();
-        webAppLiteEmbedded.startWebApp();
+//        WebAppLiteEmbedded webAppLiteEmbedded = new WebAppLiteEmbedded();
+//        webAppLiteEmbedded.startWebApp();
 
     }
 }

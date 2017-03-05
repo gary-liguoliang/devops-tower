@@ -18,8 +18,8 @@ public class ConfigDataStoreFileTest {
     @Before
     public void setUp() throws Exception {
         configDataStoreFile = new ConfigDataStoreFile();
-        configDataStoreFile.setDbConnectionsSource(new File(getClass().getClassLoader().getResource("db-connections.json").getFile()));
-        configDataStoreFile.setConfigJobsSource(new File(getClass().getClassLoader().getResource("job-configs.json").getFile()));
+        configDataStoreFile.setDbConnectionsSource(new File(getClass().getClassLoader().getResource("db-connections.json").getFile()).getAbsolutePath());
+        configDataStoreFile.setConfigJobsSource(new File(getClass().getClassLoader().getResource("job-configs.json").getFile()).getAbsolutePath());
     }
 
     @Test
