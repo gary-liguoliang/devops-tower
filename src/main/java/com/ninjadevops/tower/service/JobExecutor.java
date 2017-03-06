@@ -3,12 +3,14 @@ package com.ninjadevops.tower.service;
 import com.ninjadevops.tower.model.DBConnection;
 import com.ninjadevops.tower.model.runtime.JobInstance;
 import com.ninjadevops.tower.model.runtime.JobRunResult;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
 /**
  * Created by me@liguoliang.com on 2/18/2017.
  */
+@Component
 public class JobExecutor {
 
     public JobRunResult execute(JobInstance jobInstance) throws JobExecutionException {

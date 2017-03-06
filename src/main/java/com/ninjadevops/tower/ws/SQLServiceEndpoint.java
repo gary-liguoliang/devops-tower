@@ -1,7 +1,10 @@
 package com.ninjadevops.tower.ws;
 
 import com.ninjadevops.tower.model.DBConnection;
+import com.ninjadevops.tower.model.JobConfig;
+import com.ninjadevops.tower.model.runtime.JobInstance;
 import com.ninjadevops.tower.service.ConfigService;
+import com.ninjadevops.tower.service.JobExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
@@ -14,9 +17,12 @@ import javax.ws.rs.Path;
 @Path("/sql")
 public class SQLServiceEndpoint {
     private ConfigService configService;
-    public SQLServiceEndpoint(ConfigService configService) {
+    private JobExecutor jobExecutor;
+
+    public SQLServiceEndpoint(ConfigService configService, JobExecutor jobExecutor) {
         System.out.println(configService);
         this.configService = configService;
+        this.jobExecutor = jobExecutor;
     }
 
     @GET
@@ -24,7 +30,10 @@ public class SQLServiceEndpoint {
         String result = "";
         try {
             DBConnection dbConnection = configService.getDBConnectionById("db-sit2");
+
             result += dbConnection.getConnectionString();
+            result += jobExecutor.execute(new JobInstance(JobConfig.newInstance("sql-job1", "SELECT 'SQL Tower'"), dbConnection)).getValue();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
