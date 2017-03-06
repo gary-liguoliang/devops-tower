@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
 @ComponentScan("com.ninjadevops.tower")
 public class ServiceConfig extends ResourceConfig{
     public ServiceConfig() {
-        register(SQLServiceEndpoint.class);
+        register(StatusEndpoint.class);
     }
 }

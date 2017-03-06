@@ -15,18 +15,18 @@ import javax.ws.rs.Path;
  */
 @Component
 @Path("/sql")
-public class SQLServiceEndpoint {
+public class StatusEndpoint {
     private ConfigService configService;
     private JobExecutor jobExecutor;
 
-    public SQLServiceEndpoint(ConfigService configService, JobExecutor jobExecutor) {
+    public StatusEndpoint(ConfigService configService, JobExecutor jobExecutor) {
         System.out.println(configService);
         this.configService = configService;
         this.jobExecutor = jobExecutor;
     }
 
     @GET
-    public String message() {
+    public String getStatus() {
         String result = "";
         try {
             DBConnection dbConnection = configService.getDBConnectionById("db-sit2");
@@ -37,7 +37,7 @@ public class SQLServiceEndpoint {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "Please use POST: " + result;
+        return "DevOps Tower is running: " + result;
     }
 
 }
