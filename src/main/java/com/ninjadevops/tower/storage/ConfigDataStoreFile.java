@@ -24,7 +24,7 @@ public class ConfigDataStoreFile implements ConfigDataStore {
     private static final Type listTypeDBConnection = new TypeToken<ArrayList<DBConnection>>() {}.getType();
     private static final Type listTypeJobConfig = new TypeToken<ArrayList<JobConfig>>() {}.getType();
 
-    @Value("${message:C:\\dev\\projects\\devops-tower\\src\\main\\resources\\db-connections.json}")
+    @Value("${dbConnectionsSource:C:\\dev\\projects\\devops-tower\\src\\main\\resources\\db-connections.json}")
     private String dbConnectionsSource;
     private String configJobsSource ;
 
@@ -48,7 +48,7 @@ public class ConfigDataStoreFile implements ConfigDataStore {
 
     @Override
     public DBConnection getDBConnectionById(String id) throws StorageException {
-        System.out.println("finding: " + id);
+        System.out.println("finding: " + id + ", form: " + this.dbConnectionsSource);
         List<DBConnection> dbConnections = null;
         dbConnections = new Gson().fromJson(getFileReader(dbConnectionsSource), listTypeDBConnection);
         for (DBConnection dbConnection : dbConnections) {
