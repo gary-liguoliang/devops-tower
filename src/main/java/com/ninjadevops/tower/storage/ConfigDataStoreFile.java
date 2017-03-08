@@ -26,6 +26,8 @@ public class ConfigDataStoreFile implements ConfigDataStore {
 
     @Value("${dbConnectionsSource:C:\\dev\\projects\\devops-tower\\src\\main\\resources\\db-connections.json}")
     private String dbConnectionsSource;
+
+    @Value("${dbConnectionsSource:C:\\dev\\projects\\devops-tower\\src\\main\\resources\\job-configs.json}")
     private String configJobsSource ;
 
     public void setDbConnectionsSource(String dbConnectionsSource) {

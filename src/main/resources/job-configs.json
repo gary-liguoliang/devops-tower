@@ -1,6 +1,6 @@
 [
   {
-    "id": "sql-get-env-name",
+    "id": "get-env-name",
     "command": "select 'SIT'"
   },
   {

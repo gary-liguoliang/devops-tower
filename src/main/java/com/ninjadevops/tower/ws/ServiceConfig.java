@@ -12,5 +12,6 @@ import org.springframework.stereotype.Component;
 public class ServiceConfig extends ResourceConfig{
     public ServiceConfig() {
         register(StatusEndpoint.class);
+        register(SQLExecEndpoint.class);
     }
 }

@@ -30,9 +30,7 @@ public class ConfigDataStoreFileTest {
 
     @Test
     public void getJobConfigByID() throws Exception {
-        JobConfig jobConfig = configDataStoreFile.getJobConfigByID("sql-get-env-name");
-        Assert.assertEquals("sql-get-env-name", jobConfig.getId());
+        JobConfig jobConfig = configDataStoreFile.getJobConfigByID("get-env-name");
+        Assert.assertEquals("get-env-name", jobConfig.getId());
     }
-
-
 }

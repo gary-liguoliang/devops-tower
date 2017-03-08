@@ -29,6 +29,8 @@ public class JobExecutor {
 
             JobRunResult jobRunResult = new JobRunResult();
             jobRunResult.setValue(result);
+            jobRunResult.setJobInstance(jobInstance);
+
             return jobRunResult;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

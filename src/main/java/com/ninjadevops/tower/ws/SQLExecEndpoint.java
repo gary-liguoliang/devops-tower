@@ -7,37 +7,38 @@ import com.ninjadevops.tower.service.ConfigService;
 import com.ninjadevops.tower.service.JobExecutor;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
 /**
  * Created by me@liguoliang.com on 3/5/2017.
  */
 @Component
-@Path("/status")
-public class StatusEndpoint {
+@Path("/sql-exec")
+public class SQLExecEndpoint {
     private ConfigService configService;
     private JobExecutor jobExecutor;
 
-    public StatusEndpoint(ConfigService configService, JobExecutor jobExecutor) {
+    public SQLExecEndpoint(ConfigService configService, JobExecutor jobExecutor) {
         System.out.println(configService);
         this.configService = configService;
         this.jobExecutor = jobExecutor;
     }
 
     @GET
-    public String getStatus() {
+    public String getResult(@QueryParam("conn") @NotNull String conn, @QueryParam("sql-job-id") @NotNull String sqlJobId) {
         String result = "";
         try {
-            DBConnection dbConnection = configService.getDBConnectionById("db-sit2");
+            DBConnection dbConnection = configService.getDBConnectionById(conn);
 
-            result += dbConnection.getConnectionString();
-            result += jobExecutor.execute(new JobInstance(JobConfig.newInstance("sql-job1", "SELECT 'SQL Tower'"), dbConnection)).getValue();
+            result += jobExecutor.execute(new JobInstance(configService.getJobConfigById(sqlJobId), dbConnection)).toJson();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "DevOps Tower is running: " + result;
+        return result;
     }
 
 }
