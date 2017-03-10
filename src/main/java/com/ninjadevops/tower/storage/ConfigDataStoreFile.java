@@ -24,10 +24,10 @@ public class ConfigDataStoreFile implements ConfigDataStore {
     private static final Type listTypeDBConnection = new TypeToken<ArrayList<DBConnection>>() {}.getType();
     private static final Type listTypeJobConfig = new TypeToken<ArrayList<JobConfig>>() {}.getType();
 
-    @Value("${dbConnectionsSource:C:\\dev\\projects\\devops-tower\\src\\main\\resources\\db-connections.json}")
+    @Value("${dbConnectionsSource:classpath:/db-connections.json}")
     private String dbConnectionsSource;
 
-    @Value("${dbConnectionsSource:C:\\dev\\projects\\devops-tower\\src\\main\\resources\\job-configs.json}")
+    @Value("${dbConnectionsSource:classpath:/job-configs.json}")
     private String configJobsSource ;
 
     public void setDbConnectionsSource(String dbConnectionsSource) {
@@ -41,9 +41,14 @@ public class ConfigDataStoreFile implements ConfigDataStore {
     private FileReader getFileReader(String filePath) throws StorageException {
         FileReader fileReader = null;
         try {
-            fileReader = new FileReader(filePath);
+            if (filePath.contains("classpath")) {
+                fileReader = new FileReader(getClass().getResource(filePath.substring("classpath:".length())).getPath());
+            }else {
+                fileReader = new FileReader(filePath);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            throw new StorageException(e);
         }
         return fileReader;
     }
