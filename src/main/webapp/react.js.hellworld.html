@@ -3,19 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>DevOps Tower</title>
+
 </head>
 
 <body>
 
+<script src="https://unpkg.com/react@15/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+
     <div class="container" id="main-div">
         <p>loading...</p>
     </div>
+<hr/>
+    <div id="example"></div>
+   <hr />
+    <script type="text/babel">
+        var UserGist = React.createClass({
+            getInitialState: function() {
+                return {
+                    result: '',
+                    jobConfig: ''
+                };
+            },
 
-    <script src="https://unpkg.com/react@15/dist/react.js"></script>
-    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+            componentDidMount: function() {
+                $.get(this.props.source, function(result) {
+                    var lastGist = result[0];
+                    var result_json = JSON.parse(result);
+                    console.log(JSON.parse(result).value);
+                    if (this.isMounted()) {
+                        this.setState({
+                            result: result_json.value,
+                            jobConfig: result_json.jobInstance.jobConfig.command
+                        });
+                    }
+                }.bind(this));
+            },
 
-    <script>
-        ReactDOM.render(React.createElement('div', null, 'Hello world! from react.js'), document.getElementById('main-div'));
+            render: function() {
+                return (
+                        <div>
+                            jobConfig: {this.state.jobConfig}<br />
+                            result: {this.state.result}
+                        </div>
+                );
+            }
+        });
+
+        ReactDOM.render(
+                <UserGist source="http://localhost:8080/sql-exec?conn=db-sit2&sql-job-id=get-env-name" />,
+            document.body
+        );
     </script>
 
 </body>

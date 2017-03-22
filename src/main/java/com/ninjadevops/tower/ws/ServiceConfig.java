@@ -13,5 +13,6 @@ public class ServiceConfig extends ResourceConfig{
     public ServiceConfig() {
         register(StatusEndpoint.class);
         register(SQLExecEndpoint.class);
+//        register(CorsFilter.class);
     }
 }
