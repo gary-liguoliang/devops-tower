@@ -6,6 +6,7 @@ package com.ninjadevops.tower.model;
 public class DBConnection implements ConfigObject {
     String id;
     String connectionString;
+    String bgColor;
 
     public DBConnection(String id) {
         this.id = id;

@@ -19,45 +19,52 @@
     <div class="container" id="main-div">
         <p>loading...</p>
     </div>
-<hr/>
-    <div id="example"></div>
-   <hr />
+
+
     <script type="text/babel">
-        var UserGist = React.createClass({
+        var JobExecutor = React.createClass({
             getInitialState: function() {
                 return {
                     result: '',
-                    jobConfig: ''
+                    jobConfig: '',
+                    backgroundColor: 'grey'
                 };
             },
 
             componentDidMount: function() {
                 $.get(this.props.source, function(result) {
-                    var lastGist = result[0];
                     var result_json = JSON.parse(result);
-                    console.log(JSON.parse(result).value);
+                    var bgColor = result_json.jobInstance.configObject.bgColor;
+
                     if (this.isMounted()) {
                         this.setState({
                             result: result_json.value,
-                            jobConfig: result_json.jobInstance.jobConfig.command
+                            jobConfig: result_json.jobInstance.jobConfig.command,
+                            bgColor: bgColor
+
                         });
                     }
                 }.bind(this));
             },
 
             render: function() {
+
+                var divStyle = {
+                    backgroundColor: this.state.bgColor
+                }
+
                 return (
-                        <div>
+                        <div style={divStyle}>
                             jobConfig: {this.state.jobConfig}<br />
-                            result: {this.state.result}
+                            result: {this.state.result} <br />
                         </div>
                 );
             }
         });
 
         ReactDOM.render(
-                <UserGist source="http://localhost:8080/sql-exec?conn=db-sit2&sql-job-id=get-env-name" />,
-            document.body
+            <JobExecutor source="http://localhost:8080/sql-exec?conn=db-sit2&sql-job-id=get-env-name" />,
+            document.getElementById('main-div')
         );
     </script>
 

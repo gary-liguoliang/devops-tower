@@ -1,14 +1,17 @@
 [
   {
     "id": "db-sit",
-    "connectionString": "jdbc:h2:mem:test"
+    "connectionString": "jdbc:h2:mem:test",
+    "bgColor": "green"
   },
   {
     "id": "db-sit2",
-    "connectionString": "jdbc:h2:mem:test"
+    "connectionString": "jdbc:h2:mem:test",
+    "bgColor": "#a7f2b3"
   },
   {
     "id": "db-uat",
-    "connectionString": "jdbc:h2:mem:test"
+    "connectionString": "jdbc:h2:mem:test",
+    "bgColor": "#b0c4b3"
   }
 ]
