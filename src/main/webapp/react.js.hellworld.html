@@ -27,12 +27,13 @@
                 return {
                     result: '',
                     jobConfig: '',
-                    backgroundColor: 'grey'
+                    backgroundColor: 'grey',
+                    selectedEnv: 'db-sit'
                 };
             },
 
-            componentDidMount: function() {
-                $.get(this.props.source, function(result) {
+            executeJob: function (source) {
+                $.get(source, function(result) {
                     var result_json = JSON.parse(result);
                     var bgColor = result_json.jobInstance.configObject.bgColor;
 
@@ -40,21 +41,40 @@
                         this.setState({
                             result: result_json.value,
                             jobConfig: result_json.jobInstance.jobConfig.command,
-                            bgColor: bgColor
-
+                            bgColor: bgColor,
+                            selectedEnv: 'sit'
                         });
                     }
                 }.bind(this));
+            },
+
+
+            componentDidMount: function() {
+                this.executeJob("http://localhost:8080/sql-exec?conn=" + this.state.selectedEnv + "&sql-job-id=get-env-name")
+            },
+
+            handleChange: function (event) {
+                this.state.selectedEnv = event.target.value;
+                this.executeJob("http://localhost:8080/sql-exec?conn=" + this.state.selectedEnv + "&sql-job-id=get-env-name")
             },
 
             render: function() {
 
                 var divStyle = {
                     backgroundColor: this.state.bgColor
-                }
+                };
+
 
                 return (
                         <div style={divStyle}>
+
+                            <select name="env" onChange={this.handleChange}>
+                                <option value="db-sit">db-sit</option>
+                                <option value="db-sit2">db-sit2</option>
+                                <option value="db-uat">db-uat</option>
+                            </select>
+
+                            <hr />
                             jobConfig: {this.state.jobConfig}<br />
                             result: {this.state.result} <br />
                         </div>
