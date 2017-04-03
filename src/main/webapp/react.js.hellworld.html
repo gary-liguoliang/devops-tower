@@ -20,6 +20,8 @@
         <p>loading...</p>
     </div>
 
+    <div class="container" id="adhoc-div" />
+
 
     <script type="text/babel">
         var JobExecutor = React.createClass({
@@ -85,6 +87,49 @@
         ReactDOM.render(
             <JobExecutor source="http://localhost:8080/sql-exec?conn=db-sit2&sql-job-id=get-env-name" />,
             document.getElementById('main-div')
+        );
+
+        class NameForm extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {value: ''};
+
+                this.handleChange = this.handleChange.bind(this);
+                this.handleSubmit = this.handleSubmit.bind(this);
+            }
+
+            handleChange(event) {
+                this.setState({value: event.target.value});
+            }
+
+            postJob(sql) {
+                console.log("post job:" + sql);
+                $.post( "http://localhost:8080/sql-exec", JSON.stringify({ env:"db-sit2", query: "select 'adhoc'" }), function( data ) {
+                    console.log(data);
+                });
+            }
+
+            handleSubmit(event) {
+                this.postJob(this.state.value);
+                event.preventDefault();
+            }
+
+            render() {
+                return (
+                        <form onSubmit={this.handleSubmit}>
+                            <label>
+                                sql:
+                                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                            </label>
+                            <input type="submit" value="Execue" />
+                        </form>
+                );
+            }
+        }
+
+        ReactDOM.render(
+                <NameForm />,
+            document.getElementById('adhoc-div')
         );
     </script>
 
