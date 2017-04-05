@@ -156,17 +156,20 @@
                     name: 'mySelect',
                     options: [
                         {
-                            value: "optionOne",
-                            label: "Option One"
-                        },
-                        {
-                            value: "optionsTwo",
-                            label: "Option Two",
-                            selected: true,
+                            value: "",
+                            label: "loading..."
                         }
                     ]
 
                 };
+            },
+
+            handleChange: function(event) {
+                console.log('changed');
+                this.props.options.push({value: "added", label:"added"});
+                console.log(this.props.options);
+                this.render();
+                this.forceUpdate();
             },
 
             render: function() {
@@ -199,7 +202,7 @@
                 }, this);
 
                 return (
-                        <select
+                        <select  onChange={this.handleChange}
                                 defaultValue={defaultValue}
                                 multiple={this.props.multiple}
                                 name={this.props.name}
@@ -210,8 +213,20 @@
             }
         });
 
+        var opts =  [
+            {
+                value: "optionOne",
+                label: "Option Onedd"
+            },
+            {
+                value: "optionsTwo",
+                label: "Option Twoxx",
+                selected: true,
+            }
+        ]
+
         ReactDOM.render(
-                <EnhancedSelect />,
+                <EnhancedSelect options={opts} />,
             document.getElementById('divTest')
         );
 
