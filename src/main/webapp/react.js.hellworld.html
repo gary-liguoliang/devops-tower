@@ -76,12 +76,24 @@
 
                 return (
                         <div style={divStyle}>
+                            <form onSubmit={this.handleSubmit}>
+
+                            <select name="job-select">
+                                <option value="get-trade-details">get-trade-details</option>
+                                <option value="get-trade-list">get-trade-list</option>
+                                <option value="dump-trade">dump-trade</option>
+                            </select>
 
                             <select name="env" onChange={this.handleChange}>
-                                <option value="db-sit">{this.state.backgroundColor}</option>
-                                <option value="db-sit2">db-sit2</option>
-                                <option value="db-uat">db-uat</option>
+                                <option value="db-sit">SIT</option>
+                                <option value="db-sit2">SIT2</option>
+                                <option value="db-uat">UAT</option>
+                                <option value="db-prod">PROD</option>
                             </select>
+
+                                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                                <input type="submit" value="Execue" />
+                            </form>
 
                             <hr />
                             jobConfig: {this.state.jobConfig}<br />
