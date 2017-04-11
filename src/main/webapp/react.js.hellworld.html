@@ -39,6 +39,7 @@
                     jobConfig: '',
                     backgroundColor: 'grey',
                     selectedEnv: 'db-sit',
+                    tradeId: 'FXO20170401ABC',
                 };
             },
 
@@ -68,6 +69,16 @@
                 this.executeJob("http://localhost:8080/sql-exec?conn=" + this.state.selectedEnv + "&sql-job-id=get-env-name")
             },
 
+            handleTradeIdChange: function (event) {
+                this.state.tradeId = event.target.value;
+                console.log('trade id change: ' + this.state.tradeId);
+            },
+
+            handleSubmit: function (event) {
+                console.log('handle submit:' + this.state.tradeId);
+                event.preventDefault();
+            },
+
             render: function() {
 
                 var divStyle = {
@@ -91,7 +102,7 @@
                                 <option value="db-prod">PROD</option>
                             </select>
 
-                                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                                <input type="text" defaultValue={this.state.tradeId} onChange={this.handleTradeIdChange}/>
                                 <input type="submit" value="Execue" />
                             </form>
 
