@@ -1,4 +1,10 @@
 [
+
+  {
+    "id": "db-dev",
+    "connectionString": "jdbc:h2:mem:test",
+    "bgColor": "#a7f2b3"
+  },
   {
     "id": "db-sit",
     "connectionString": "jdbc:h2:mem:test",
@@ -7,11 +13,16 @@
   {
     "id": "db-sit2",
     "connectionString": "jdbc:h2:mem:test",
-    "bgColor": "#a7f2b3"
+    "bgColor": "green"
   },
   {
     "id": "db-uat",
     "connectionString": "jdbc:h2:mem:test",
-    "bgColor": "#b0c4b3"
+    "bgColor": "grey"
+  },
+  {
+    "id": "db-prod",
+    "connectionString": "jdbc:h2:mem:test",
+    "bgColor": "red"
   }
 ]

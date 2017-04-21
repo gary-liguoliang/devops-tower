@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevOpsTower</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container" id="mainDiv">
+
+    <div class="starter-template">
+        <h1><span id="headerAction">{action}</span> @ <span id="headerEnv">{env}</span></h1>
+        <p class="lead">select 'Action' and 'Env', then "Go" </p>
+    </div>
+
+    <form>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="selectAction">Action</label>
+                <select class="form-control" id="selectAction">
+                    <option>get-trade-details</option>
+                    <option>select-latest-10-trades</option>
+                    <option>replay-trades</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="selectEnv">Env</label>
+                <select class="form-control" id="selectEnv">
+                    <option>db-dev</option>
+                    <option>db-sit</option>
+                    <option>db-uat</option>
+                    <option>db-prod</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="Parameter">Parameter</label>
+                <input class="form-control" id="Parameter" placeholder="Parameter">
+            </div>
+
+            <div class="form-group col-md-1">
+                <label></label>
+                <button type="submit" class="form-control btn btn-primary">Go</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script>
+    $("#selectEnv").change(function () {
+        updateUI();
+        onEnvChange();
+    });
+
+    $( "#selectEnv" ).ready(function () {
+        onEnvChange();
+        updateUI();
+    });
+
+    $("#selectAction").change(function () {
+        updateUI();
+    });
+
+    $("#selectAction").change(function () {
+        updateUI();
+    });
+
+    function onEnvChange() {
+        var env = $('#selectEnv').find(":selected").text();
+
+        $.get("http://localhost:8080/sql-exec?conn=" + env + "&sql-job-id=get-env-name", function (result) {
+            console.log(result)
+
+            var result_json = JSON.parse(result);
+            var bgColor = result_json.jobInstance.configObject.bgColor;
+            console.log(bgColor)
+
+            $("#mainDiv").css('background-color', bgColor);
+        });
+    }
+
+    function updateUI() {
+        var selectedAction = $('#selectAction').find(":selected").text();
+        var selectedEnv = $('#selectEnv').find(":selected").text();
+
+        $("#headerAction").text(selectedAction);
+        $("#headerEnv").text(selectedEnv);
+    }
+</script>
+
+</body>
+</html>
